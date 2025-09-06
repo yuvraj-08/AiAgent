@@ -35,45 +35,45 @@ const model = new ChatMistralAI({
 const checkpointSaver = new MemorySaver();
 
 // creats agent which is later used to make requests.
-const agent = createReactAgent({
+export const agent = createReactAgent({
   llm: model,
   tools: [weatherTool],
   checkpointSaver, // pass memory instance to agent
 });
 
 // invoke makes a call to the llm model
-const result = await agent.invoke(
-  {
-    messages: [
-      {
-        role: "user",
-        content: "Whats the weather in punjab",
-      },
-    ],
-  },
-  {
-    configurable: {
-      thread_id: 42, // tells the agent to store the messages in threa_id 42 for further reference.
-    },
-  }
-);
+// const result = await agent.invoke(
+//   {
+//     messages: [
+//       {
+//         role: "user",
+//         content: "Whats the weather in punjab",
+//       },
+//     ],
+//   },
+//   {
+//     configurable: {
+//       thread_id: 42, // tells the agent to store the messages in threa_id 42 for further reference.
+//     },
+//   }
+// );
 
-const followUp = await agent.invoke(
-  {
-    messages: [
-      {
-        role: "user",
-        content: "Whats city is that for?",
-      },
-    ],
-  },
-  {
-    configurable: {
-      thread_id: 42, // passing same thread to make reference to the previous chat
-    },
-  }
-);
+// const followUp = await agent.invoke(
+//   {
+//     messages: [
+//       {
+//         role: "user",
+//         content: "Whats city is that for?",
+//       },
+//     ],
+//   },
+//   {
+//     configurable: {
+//       thread_id: 42, // passing same thread to make reference to the previous chat
+//     },
+//   }
+// );
 
 // logs out the result received from the agent.
-console.log(result?.messages.at(-1)?.content);
-console.log(followUp?.messages.at(-1)?.content);
+// console.log(result?.messages.at(-1)?.content);
+// console.log(followUp?.messages.at(-1)?.content);
